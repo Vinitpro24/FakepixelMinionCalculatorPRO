@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minion Cost Calculator </title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #aaaaaa;
+            color: #0a0a0a;
+            background-image: url(https://wallpapers.com/images/featured/2560x1440-minecraft-vrrylcizbwzli0mx.jpg);
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+        }  
+        
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .block-inputs {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+        
+        .result-item {
+            margin-bottom: 8px;
+        }
+        
+        .total {
+            font-weight: bold;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+        }
+    </style>
+</head>
+<body>
+    
+      
+
+    <h1>Minion Cost Calculator [beta]</h1>
+    <div class="calculator">
+        <div class="form-group">
+            <label for="minionType">Select Minion Type:</label>
+            <select id="minionType">
+                <option value="">-- Select Type --</option>
+                <option value="SLAYER">SLAYER  </option>
+                <option value="FARMING">FARMING  </option>
+                <option value="FORAGING">FORAGING  </option>
+                <option value="MINING">MINING  </option>
+                <option value="COMBAT">COMBAT  </option>
+                <option value="b">Blaze  </option>
+                <option value="sl">Slime </option>
+                <option value="p">Pig </option>
+                <option value="p">Sheep </option>
+                <option value="z">Zombie </option>
+                <option value="sk">Skeleton </option>
+                <option value="s">Snow </option>
+                <option value="e">Enderman </option>
+                <option value="sp">Spider</option>
+                <option value="c">Creeper</option>
+                <option value="mc">Magma Cube</option>
+                <option value="g">Ghast</option>
+                <option value="c">Clay</option> 
+                <option value="m">Mithril</option> 
+                <option value="sa">Sand</option> 
+                <option value="gl">Glowstone</option> 
+                <option value="ob">Obsidian</option>
+                <option value="q">Quartz</option>
+                <option value="l">lapis</option>
+                <option value="i">Iron</option>
+                <option value="gr">Gravel</option>
+                <option value="g">Gold</option>
+                <option value="es">End Stone</option>
+                <option value="em">Emberald</option>
+                <option value="di">Diamond</option>
+                <option value="r">Redstone</option>
+                <option value="cs">Cobblestone</option>
+                <option value="co">Coal</option>
+                <option value="f">Fishing</option>
+                <option value="ic">Ice</option>
+                <option value="mu">Mushroom</option>
+                <option value="su">Sugarcane</option>
+                <option value="ra">Rabbit</option>
+                <option value="ch">Chicken</option>
+                <option value="pu">Pumpkin</option>
+                <option value="po">Potato</option>
+                <option value="n">Nether Wart</option>
+                <option value="me">Melon</option>
+                <option value="cow">Cow</option>
+                <option value="coc">Cocoa beans</option>
+                <option value="ca">Carrot</option>
+                <option value="cac">Cactus</option>
+                <option value="w">Wheat</option>
+                <option value="spr">Spruce</option>
+                <option value="a">Acacia</option>
+                <option value="bi">Birch</option>
+                <option value="j">Jungle</option>
+                <option value="do">Dark Oak</option>
+                <option value="o">Oak</option>
+                 
+
+                
+
+
+
+
+
+            </select>
+
+        </div>
+        
+        <div class="form-group">
+            <label for="tier">Tier (1-11):</label>
+            <input type="number" id="tier" min="1" max="11" value="1">
+        </div>
+        
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1" value="1">
+        </div>
+        
+        <div id="normalBlockInputs" class="block-inputs">
+            <div class="form-group">
+                <label for="normalBlock">Normal Block Cost:</label>
+                <input type="number" id="normalBlock" min="0" value="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="enchantedBlock">Enchanted Block Cost:</label>
+                <input type="number" id="enchantedBlock" min="0" value="0">
+            </div>
+            
+            <div id="superEnchantedGroup" class="form-group">
+                <label for="superEnchantedBlock">Super Enchanted Block Cost:</label>
+                <input type="number" id="superEnchantedBlock" min="0" value="0">
+            </div>
+        </div>
+        
+        <button id="calculate">Calculate</button>
+        
+        <div id="results" class="results">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+
+        const blockTiers = [
+            // Set 1 - Blaze, Slime, Creeper, Mithril, Quartz, Iron, Gold, Emberald, Diamond, Coal, Cocoa beans
+            [80, 160, 320, 512, 8, 24, 64, 128, 256, 512, 8],
+            // Set 2 - Pig, Sheep, Fishing
+            [64, 128, 256, 512, 8, 24, 64, 128, 256, 512, 8],
+            // Set 3 - Zombie, Skeleton, Spider, Magma Cube, Ghast, Clay, Sand, Obsidian, Gravel, End Stone, Cobblestone, Mushroom, Pumpkin, Nether Wart, Wheat, Spruce, Acacia, Birch, Jungle, Dark Oak, Oak 
+            [80, 160, 320, 512, 8, 16, 32, 64, 128, 256, 512],
+            // Set 4 - Snow
+            [0, 64, 128, 256, 512, 8, 16, 32, 64, 128, 256],
+            // Set 5 - Enderman
+            [64, 128, 8, 24, 48, 96, 8, 24, 48, 96, 192],
+            // Set 6 - Glowstone, Redstone, Sugarcane, Potato, Carrot, Cactus
+            [128, 256, 512, 8, 24, 64, 128, 256, 512, 8, 16],
+            // Set 7 - Lapis
+            [256, 512, 8, 24, 64, 128, 256, 512, 8, 16, 32],
+            // Set 8 - Ice
+            [80, 160, 320, 512, 128, 256, 512, 64, 128, 256, 512],
+            // Set 9 - Rabbit 
+            [64, 128, 256, 512, 32, 64, 128, 256, 512, 256, 512],
+            // set 10 - Chicken
+            [64, 128, 256, 512, 8, 16, 32, 64, 128, 256, 512],
+            // set 11 - Melon
+            [256, 512, 1152, 2304, 4608, 64, 128, 256, 512, 8, 16],
+            // set 12 - Cow 
+            [64, 128, 256, 512, 8, 24, 64, 128, 256, 512, 256]
+        ];
+       
+
+        document.getElementById('minionType').addEventListener('change', function() {
+            const minionType = this.value;
+            const blockInputs = document.getElementById('normalBlockInputs');
+            const superEnchantedGroup = document.getElementById('superEnchantedGroup');
+            let bx1 = 0, bx2 = 0, bx3 = 0;
+            let set = 0;
+            
+            // Determine the set based on minion type
+            switch(minionType) {
+                case 'b':  //Blaze
+                case 'sl': //Slime
+                case 'c' : //Creeper
+                case 'm' : //Mithril
+                case 'q' : //Quartz
+                case 'i' ://Iron
+                case 'g' ://Gold
+                case 'em'://Emberald
+                case 'di'://Diamond
+                case 'co'://Coal
+                case 'coc'://Cocoa beans
+                    set = 1;
+                    break;
+                case 'p':  //Pig
+                case 'sh': //Sheep
+                case 'f': //Fishing
+                    set = 2;
+                    break;
+                case 'z':  // Zombie
+                case 'sk': //Skeleton
+                case 'sp': //Spider
+                case 'mc': //Magma Cube
+                case 'g' : //Ghast
+                case 'c' : //Clay
+                case 'sa': //Sand
+                case 'ob': //Obsidian 
+                case 'gr' ://Gravel
+                case 'es' ://End Stone
+                case 'cs' ://Cobblestone
+                case 'mu' ://Mushroom
+                case 'pu' ://Pumpkin
+                case 'w'://Wheat
+                case 'spr'://Spruce
+                case 'a'://Acacia
+                case 'bi'://Brich
+                case 'j'://Jungle
+                case 'do'://Dark Oak
+                case 'o'://Oak
+                    set = 3;
+                    break;
+                case 's':  // Snow
+                    set = 4;
+                    break;
+                case 'e': //Enderman
+                    set = 5;
+                    break;
+                case 'gl': //GlowStone
+                case 'r'://RedStone
+                case 'su'://Sugarcane
+                case 'po'://Potato
+                case 'ca'://Carrot
+                case 'cac'://Cactus
+                    set = 6;
+                    break;
+                case 'l': //lapis
+                    set = 7;
+                    break;
+                case 'i'://Ice
+                    set = 8;
+                    break;
+                case 'ra'://Rabbit
+                    set = 9;
+                    break;
+                case 'ch'://Chicken
+                    set = 10;
+                    break;
+                case 'me'://Melon
+                    set = 11;
+                    break;
+                case 'cow'://Cow
+                    set = 12;
+                    break;
+            }
+            if (minionType) {
+                blockInputs.style.display = 'block';
+                
+                // Hide super enchanted input for zombie and skeleton minions (set 3)
+                if (set === 3 || set === 4 || set === 10 ){ 
+                    superEnchantedGroup.style.display = 'none';
+                } else {
+                    superEnchantedGroup.style.display = 'block';
+                }
+            } else {
+                blockInputs.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('calculate').addEventListener('click', calculateCost);
+        
+        function calculateCost() {
+            // Get input values
+            const minionType = document.getElementById('minionType').value;
+            const tier = parseInt(document.getElementById('tier').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const normalBlockCost = parseInt(document.getElementById('normalBlock').value);
+            const enchantedBlockCost = parseInt(document.getElementById('enchantedBlock').value);
+            const superEnchantedBlockCost = parseInt(document.getElementById('superEnchantedBlock').value || 0);
+            
+
+            if (!minionType || isNaN(tier) || isNaN(quantity) || tier < 1 || tier > 11 || quantity < 1) {
+                alert('Please enter valid values for all fields');
+                return;
+            }
+            let bx1 = 0, bx2 = 0, bx3 = 0;
+            let set = 0;
+            
+            // Determine the set based on minion type, second time
+            switch(minionType) {
+                case 'b':  //Blaze
+                case 'sl': //Slime
+                case 'c' : //Creeper
+                case 'm' : //Mithril
+                case 'q' : //Quartz
+                case 'i' ://Iron
+                case 'g' ://Gold
+                case 'em'://Emberald
+                case 'di'://Diamond
+                case 'co'://Coal
+                case 'coc'://Cocoa beans
+                    set = 1;
+                    break;
+                case 'p':  //Pig
+                case 'sh': //Sheep
+                case 'f': //Fishing
+                    set = 2;
+                    break;
+                case 'z':  // Zombie
+                case 'sk': //Skeleton
+                case 'sp': //Spider
+                case 'mc': //Magma Cube
+                case 'g' : //Ghast
+                case 'c' : //Clay
+                case 'sa': //Sand
+                case 'ob': //Obsidian 
+                case 'gr' ://Gravel
+                case 'es' ://End Stone
+                case 'cs' ://Cobblestone
+                case 'mu' ://Mushroom
+                case 'pu' ://Pumpkin
+                case 'w'://Wheat
+                case 'spr'://Spruce
+                case 'a'://Acacia
+                case 'bi'://Brich
+                case 'j'://Jungle
+                case 'do'://Dark Oak
+                case 'o'://Oak
+                    set = 3;
+                    break;
+                case 's':  // Snow
+                    set = 4;
+                    break;
+                case 'e': //Enderman
+                    set = 5;
+                    break;
+                case 'gl': //GlowStone
+                case 'r'://RedStone
+                case 'su'://Sugarcane
+                case 'po'://Potato
+                case 'ca'://Carrot
+                case 'cac'://Cactus
+                    set = 6;
+                    break;
+                case 'l': //lapis
+                    set = 7;
+                    break;
+                case 'i'://Ice
+                    set = 8;
+                    break;
+                case 'ra'://Rabbit
+                    set = 9;
+                    break;
+                case 'ch'://Chicken
+                    set = 10;
+                    break;
+                case 'me'://Melon
+                    set = 11;
+                    break;
+                case 'cow'://Cow
+                    set = 12;
+                    break;
+            }
+
+            
+            
+
+            if (set === 4) {
+                // Special handling for set 4 (Snow)
+                for (let i = 0; i <= tier; i++) {
+                    if (i < 5) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 11) {
+                        bx2 += blockTiers[set-1][i];
+                    }
+                }
+            } 
+            if (set === 3 || set === 10){
+                //special handling for set 3 
+            for (let i = 0; i < tier; i++) {
+                    if (i < 4) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 11) {
+                        bx2 += blockTiers[set-1][i];
+                    } 
+                }   
+            }
+            if (set === 1 || set === 2 || set === 12)
+            {
+                // Common handling for sets 1-2-12
+                for (let i = 0; i < tier; i++) {
+                    if (i < 4) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 10) {
+                        bx2 += blockTiers[set-1][i];
+                    } else if (i === 10) {
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }
+            }
+            if(set === 5 )//special handling for enderman
+            {
+                for (let i = 0; i < tier; i++) {
+                    if (i < 2) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 6) {
+                        bx2 += blockTiers[set-1][i];
+                    } else if (i <= 10){ 
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }
+            }
+            if(set === 6)//glowstone and potato
+            {
+                for (let i = 0; i < tier; i++) {
+                    if (i < 3) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 9) {
+                        bx2 += blockTiers[set-1][i];
+                    } else if (i <= 10){ 
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }   
+            }
+            if(set === 7)//special handling for lapis
+            {
+                for (let i = 0; i < tier; i++) {
+                    if (i < 2) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 8) {
+                        bx2 += blockTiers[set-1][i];
+                    } else if (i <= 10){ 
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }   
+            }
+            if(set === 8)//special handling for Ice
+            {
+                for (let i = 0; i < tier; i++) {
+                    if (i < 4) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 7) {
+                        bx2 += blockTiers[set-1][i];
+                    } else if (i <= 10){ 
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }   
+            }
+            if(set === 9)//special handling for Rabbit
+            {
+                for (let i = 0; i < tier; i++) {
+                    if (i < 4) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 9) {
+                        bx2 += blockTiers[set-1][i];
+                    } else if (i <= 10){ 
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }   
+            }
+            if(set === 11)//special handling for Melon
+            {
+                for (let i = 0; i < tier; i++) {
+                    if (i < 5) {
+                        bx1 += blockTiers[set-1][i];
+                    } else if (i < 9) {
+                        bx2 += blockTiers[set-1][i];
+                    } else if (i <= 10){ 
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }   
+            }
+           
+            
+
+            const normalBlockTotalCost = bx1 * normalBlockCost;
+            const enchantedBlockTotalCost = bx2 * enchantedBlockCost;
+            const superEnchantedBlockTotalCost = bx3 * superEnchantedBlockCost;
+            
+            const totalCost = (normalBlockTotalCost + enchantedBlockTotalCost + superEnchantedBlockTotalCost) * quantity;
+            const discountedCost = totalCost / 2;
+            
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.style.display = 'block';
+            
+            let resultsHTML = '';
+            
+            if (bx1 > 0) {
+                resultsHTML += `<div class="result-item">Normal blocks needed: ${bx1}</div>`;
+                resultsHTML += `<div class="result-item">Normal block cost: ${normalBlockTotalCost}</div>`;
+            }
+            
+            if (bx2 > 0) {
+                resultsHTML += `<div class="result-item">Enchanted blocks needed: ${bx2}</div>`;
+                resultsHTML += `<div class="result-item">Enchanted block cost: ${enchantedBlockTotalCost}</div>`;
+            }
+            
+            if (bx3 > 0) {
+                resultsHTML += `<div class="result-item">Super enchanted blocks needed: ${bx3}</div>`;
+                resultsHTML += `<div class="result-item">Super enchanted block cost: ${superEnchantedBlockTotalCost}</div>`;
+            }
+            
+            resultsHTML += `<div class="total">Total cost for ${quantity} minion(s): ${totalCost}</div>`;
+            resultsHTML += `<div class="total">After 50% discount: ${discountedCost}</div>`;
+            
+            resultsDiv.innerHTML = resultsHTML;
+        }
+    </script>
+</body>
+</html>
