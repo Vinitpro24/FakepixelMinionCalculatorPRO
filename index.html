@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minion Cost Calculator </title>
     <style>
+        
         body {
             font-family: 'Arial', sans-serif;
             max-width: 600px;
@@ -16,12 +17,23 @@
             height: 100vh;
             background-size: cover;
             background-position: center;
-            }
+            
+           }
+          
+            
         h1 {
             text-align: center;
             color: #ffffff;
+            
         }  
-        
+        #myVideo {
+        position: fixed;
+        right: 0;
+         bottom: 0;
+         min-width: 100%;
+         min-height: 100%;
+         z-index: -1;
+       }
         .calculator {
             background-color: white;
             padding: 20px;
@@ -89,13 +101,19 @@
             padding-top: 10px;
             border-top: 1px dashed #ddd;
         }
-    </style>
-</head>
-<body>
-    
       
+    </style>
+    
+    
+</head>
+<!-- The video -->
+<video autoplay muted loop id="myVideo">
+    <source src="https://cdn.pixabay.com/video/2021/11/29/99299-655758366_large.mp4" type="video/mp4">
+  </video>
+<body>
 
-    <h1>Minion Cost Calculator [beta]</h1>
+
+    <h1>Minion Cost Calculator Pro</h1>
     <div class="calculator">
         <div class="form-group">
             <label for="minionType">Select Minion Type:</label>
