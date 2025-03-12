@@ -207,7 +207,7 @@
                     <option value="f">Fishing</option>
                 </optgroup>
                     <optgroup label="SLAYER">
-                    <option value="Highly in development">Inferno</option>
+                    <option value="inf">development(inferno)</option>
                     </optgroup>
                 
             </select>
@@ -275,6 +275,8 @@
             [256, 512, 1152, 2304, 4608, 64, 128, 256, 512, 8, 16],
             // set 12 - Cow 
             [64, 128, 256, 512, 8, 24, 64, 128, 256, 512, 256]
+            // set 13 - Inferno
+            [80, 320, 8, 16, 32, 64, 128, 256, 1280, 3328, 3068]
         ];
        
         
@@ -358,6 +360,9 @@
                     break;
                 case 'cow'://Cow
                     set = 12;
+                    break;
+                case 'inf'://Inferno
+                    set = 13;
                     break;
             }
             if (minionType) {
@@ -574,6 +579,17 @@
                     } else if (i < 9) {
                         bx2 += blockTiers[set-1][i];
                     } else if (i <= 10){ 
+                        bx3 += blockTiers[set-1][i];
+                    }
+                }   
+            }
+            if(set === 13)//special handling for inferno
+            {
+                for (let i = 0; i < tier; i++) {
+                    if (i < 2) {
+                        bx1 += blockTiers[set-1][i];
+                    } 
+                    else if (i <= 10){ 
                         bx3 += blockTiers[set-1][i];
                     }
                 }   
